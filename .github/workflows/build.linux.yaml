@@ -37,20 +37,22 @@ jobs:
         with:
           command: tauri
           args: build
-      - name: "Rename Conflicting Assets"
+      - name: "Collect Artifacts"
         run: |
-          mv src-tauri/target/release/taurapp src-tauri/target/release/taurapp_amd64_linux
+          mv src-tauri/target/release/taurapp ./taurapp_amd64_linux
+          mv src-tauri/target/release/bundle/appimage/*.AppImage ./taurapp_amd64.AppImage
+          mv src-tauri/target/release/bundle/deb/*.deb ./taurapp_amd64.deb
       - name: "Upload Build"
         uses: actions/upload-artifact@v2
         with:
           name: taurapp_amd64_linux
-          path: src-tauri/target/release/taurapp_amd64_linux
+          path: taurapp_amd64_linux
           retention-days: 1
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            src-tauri/target/release/taurapp_amd64_linux
-            src-tauri/target/release/bundle/appimage/taurapp_$GITHUB_REF_NAME_amd64.AppImage
-            src-tauri/target/release/bundle/deb/taurapp_$GITHUB_REF_NAME_amd64.deb
+            taurapp_amd64_linux
+            taurapp_amd64.AppImage
+            taurapp_amd64.deb
