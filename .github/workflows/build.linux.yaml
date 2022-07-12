@@ -1,0 +1,56 @@
+name: build_linux
+
+on: [push, pull_request]
+
+jobs:
+  Test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        rust: [stable] # [stable, beta]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          override: true
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+      - name: "Install Dependencies"
+        run: sudo apt install libdbus-1-dev pkg-config libgtk-3-dev libgdk3.0-cil-dev libsoup2.4-dev libwebkit2gtk-4.0-dev libappindicator* -y
+      - name: "Install Tauri"
+        uses: actions-rs/cargo@v1
+        with:
+          command: install
+          args: tauri-cli
+      - name: "Build Tauri App"
+        uses: actions-rs/cargo@v1
+        with:
+          command: tauri
+          args: build
+      - name: "Rename Conflicting Assets"
+        run: |
+          mv src-tauri/target/release/taurapp src-tauri/target/release/taurapp_amd64_linux
+      - name: "Upload Build"
+        uses: actions/upload-artifact@v2
+        with:
+          name: taurapp_amd64_linux
+          path: src-tauri/target/release/taurapp_amd64_linux
+          retention-days: 1
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            src-tauri/target/release/taurapp_amd64_linux
+            src-tauri/target/release/bundle/appimage/taurapp_$GITHUB_REF_NAME_amd64.AppImage
+            src-tauri/target/release/bundle/deb/taurapp_$GITHUB_REF_NAME_amd64.deb
