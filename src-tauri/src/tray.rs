@@ -37,7 +37,7 @@ impl From<String> for TrayIdentifier {
     }
 }
 
-fn get_system_tray_menu(is_hidden: bool) -> SystemTrayMenu {
+pub(crate) fn get_system_tray_menu(is_hidden: bool) -> SystemTrayMenu {
     log::debug!("Generating system tray menu...");
     log::trace!("is hidden: {}", is_hidden);
     let hide_item = CustomMenuItem::new(TrayIdentifier::Hide, "Hide");

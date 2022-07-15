@@ -9,7 +9,7 @@
     windows_subsystem = "windows"
 )]
 
-use app::{logging, tray};
+use app::{logging, tray, window::handle_window_event};
 
 fn main() {
     logging::setup_logger().expect("Could not set up loggers.");
@@ -17,6 +17,7 @@ fn main() {
     tauri::Builder::default()
         .system_tray(tray::get_system_tray())
         .on_system_tray_event(tray::handle_tray_event)
+        .on_window_event(handle_window_event)
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
