@@ -9,17 +9,11 @@ use tauri::{GlobalWindowEvent, Manager};
 use crate::tray;
 
 pub fn handle_window_event(event: GlobalWindowEvent) {
-    log::debug!("Handling window event");
+    log::debug!("Handling window event...");
 
     let window_event = event.event();
 
     match window_event {
-        tauri::WindowEvent::Resized(size) => {
-            log::warn!("Received resize event on window but nothing to do here.")
-        }
-        tauri::WindowEvent::Moved(position) => {
-            log::warn!("Received move event on window but nothing to do here.")
-        }
         tauri::WindowEvent::CloseRequested { api, .. } => {
             api.prevent_close();
             event.window().app_handle().tray_handle().set_menu(match event.window().is_visible() {
@@ -36,23 +30,6 @@ pub fn handle_window_event(event: GlobalWindowEvent) {
                 .hide()
                 .expect("Could not hide the main window.");
         }
-        tauri::WindowEvent::Destroyed => {
-            log::warn!("Received destroy event on window but nothing to do here.")
-        }
-        tauri::WindowEvent::Focused(is_focused) => {
-            log::warn!("Received focused event on window but nothing to do here.")
-        }
-        tauri::WindowEvent::ScaleFactorChanged {
-            scale_factor,
-            new_inner_size,
-            ..
-        } => log::warn!("Received scale factor changed event on window but nothing to do here."),
-        tauri::WindowEvent::FileDrop(file_drop_event) => {
-            log::warn!("Received file drop event on window but nothing to do here.")
-        }
-        tauri::WindowEvent::ThemeChanged(theme) => {
-            log::warn!("Received theme changed event on window but nothing to do here.")
-        }
-        _ => todo!(),
+        _ => {}
     }
 }

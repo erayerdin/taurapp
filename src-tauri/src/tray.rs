@@ -95,15 +95,6 @@ pub fn handle_tray_event(app: &AppHandle<Wry>, event: SystemTrayEvent) {
                 }
             }
         }
-        SystemTrayEvent::LeftClick { position, size, .. } => {
-            log::warn!("Received left click event on system tray but nothing to do here.");
-        }
-        SystemTrayEvent::RightClick { position, size, .. } => {
-            log::warn!("Received right click event on system tray but nothing to do here.");
-        }
-        SystemTrayEvent::DoubleClick { position, size, .. } => {
-            log::warn!("Received double click event on system tray but nothing to do here.");
-        }
-        _ => log::warn!("Unknown system tray event was dispatched."),
+        _ => {}
     }
 }
