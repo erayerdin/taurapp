@@ -29,7 +29,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.erayerdin.taurapp",
+      "identifier": "com.ajhs.turmessenger",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -58,7 +58,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "TaurApp",
+        "title": "TurMessenger",
         "width": 800
       }
     ],
