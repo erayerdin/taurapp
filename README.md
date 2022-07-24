@@ -1,8 +1,8 @@
-# TaurApp
+# TurMessenger
 
-TaurApp is a WhatsApp desktop client powered by [Tauri](https://tauri.app) and Rust.
+TurMessenger is a Facebook Messenger desktop client powered by [Tauri](https://tauri.app) and Rust.
 
-TaurApp is an experimental client and is initially created to test out Tauri itself. So, it might lack some features and might be buggy at times.
+TurMessenger is an experimental client and is initially created to test out Tauri itself. So, it might lack some features and might be buggy at times.
 
 ![Linux Screenshot](resources/meta/linux-ss.png)
 
