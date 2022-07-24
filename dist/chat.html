@@ -18,8 +18,6 @@
 
   <script>
     var fs = require('fs');
-    var remote = require('remote');
-    var BrowserWindow = remote.require('browser-window');
 
     function run() {
       var webview = document.getElementById('webview');
@@ -42,30 +40,12 @@
           webview.executeJavaScript(data);
         });
 
-        //webview.openDevTools();
-      };
-
-      var newwindow = function(event) {
-        console.log('event');
-
-        var win = new BrowserWindow({
-          width: 500,
-          height: 500
-        });
-
-        win.loadUrl(__dirname + '/chat.html');
-        win.openDevTools();
-
-        win.webContents.on('dom-ready', function() {
-          console.log('dom ready');
-          win.webContents.executeJavaScript('var element = document.querySelector(\'a[data-reactid*="' + event.frameName + '"]\'); console.log(element);');
-        });
+        webview.openDevTools();
       };
 
       webview.addEventListener('did-start-loading', loadstart);
       webview.addEventListener('did-stop-loading', loadstop);
       webview.addEventListener('dom-ready', domready);
-      webview.addEventListener('new-window', newwindow);
     }
 
     window.onload = run;
@@ -73,8 +53,7 @@
 </head>
 
 <body>
-  <!-- <iframe sandbox="allow-scripts" src="https://www.messenger.com/login" frameborder="0"></iframe> -->
-  <webview id="webview" src="https://www.messenger.com/login">
+  <webview id="webview" src="https://www.messenger.com">
     <div class="indicator"></div>
   </webview>
 </body>
