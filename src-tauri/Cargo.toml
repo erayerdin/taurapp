@@ -1,10 +1,10 @@
 [package]
 name = "app"
 version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
-license = ""
-repository = ""
+description = "A WhatsApp desktop client"
+authors = ["Eray Erdin <eraygezer.94@gmail.com>"]
+license = "MPL-2.0"
+repository = "https://github.com/erayerdin/taurapp"
 default-run = "app"
 edition = "2021"
 rust-version = "1.57"
