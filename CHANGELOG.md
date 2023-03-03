@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning].
 
 ## [Unreleased] - ?
 
+### Fixed
+
+ - Updated Node dependencies for `tauri`
+ - Updated Cargo dependencies for `tauri`
+
 ### Removed
 - Unnecessary event warning logs
 
